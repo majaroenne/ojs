@@ -223,10 +223,14 @@ abstract class PubIdPlugin extends PKPPubIdPlugin {
 
 				if ($issue) {
 					$pubIdSuffix .= '.v' . $issue->getVolume() . 'i' . $issue->getNumber();
-				} else {
+				}
+				elseif ($pubObject->getData('issueId')) {
+					$issue = \Services::get('issue')->get($pubObject->getData('issueId'));
+					$pubIdSuffix .= '.v' . $issue->getVolume() . 'i' . $issue->getNumber();
+				}
+				else {
 					$pubIdSuffix .= '.v%vi%i';
 				}
-
 				if ($submission) {
 					$pubIdSuffix .= '.' . $submission->getId();
 				}
